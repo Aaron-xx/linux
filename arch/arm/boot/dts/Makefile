@@ -12,6 +12,7 @@ DTC_FLAGS_stm32h743i-eval += -@
 DTC_FLAGS_stm32h743i-disco += -@
 DTC_FLAGS_stm32mp135d-dk += -@
 DTC_FLAGS_stm32mp135d-atk += -@
+DTC_FLAGS_stm32mp135d-aaron += -@
 DTC_FLAGS_stm32mp135d-dk-a7-examples += -@
 DTC_FLAGS_stm32mp135f-dk += -@
 DTC_FLAGS_stm32mp135f-dk-a7-examples +=-@
@@ -1153,6 +1154,7 @@ dtb-$(CONFIG_ARCH_STM32) += \
 	stm32h750i-art-pi.dtb \
 	stm32mp135d-dk.dtb \
 	stm32mp135d-atk.dtb	\
+	stm32mp135d-aaron.dtb	\
 	stm32mp135d-atk-hdmi.dtb	\
 	stm32mp135d-atk-wifi-bluetooth.dtb	\
 	stm32mp135d-dk-a7-examples.dtb \
