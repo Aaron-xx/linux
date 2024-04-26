@@ -56,6 +56,6 @@ cp $BUILD_DIR/arch/arm/boot/uImage $DEPLOY_DIR
 
 #拷贝所有编译的设备树文件到当前的../build目录下
 echo "copy dtb to deploy"
-cp $BUILD_DIR/arch/arm/boot/dts/stm32mp135d-atk*.dtb $DEPLOY_DIR
+cp $BUILD_DIR/arch/arm/boot/dts/stm32mp135d-aaron*.dtb $DEPLOY_DIR
 
 echo "编译完成请查看 $DEPLOY_DIR 目录"
