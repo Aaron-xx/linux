@@ -105,12 +105,19 @@
 	status = "okay";
 };
 
-&dmamux1{
-	status = "okay";
+&dma1 {
+	sram = <&dma_pool>;
 };
 
-&mdma{
-	status = "okay";
+&dma2 {
+	sram = <&dma_pool>;
+};
+
+&sram {
+	dma_pool: dma-sram@0 {
+		reg = <0x0 0x4000>;
+		pool;
+	};
 };
 
 &rcc{
@@ -151,6 +158,42 @@
 			reg = <1>;
 		};
 	};
+};
+
+&timers1 {
+	/delete-property/dmas;
+	/delete-property/dma-names;
+	status = "okay";
+	pwm1:pwm {
+		pinctrl-0 = <&pwm1_pins_a>;
+		pinctrl-1 = <&pwm1_sleep_pins_a>;
+		pinctrl-names = "default","sleep";
+		status = "okay";
+	};
+};
+
+&timers4 {
+	/delete-property/dmas;
+	/delete-property/dma-names;
+	status = "okay";
+	pwm4:pwm {
+		pinctrl-0 = <&pwm4_pins_a>;
+		pinctrl-1 = <&pwm4_sleep_pins_a>;
+		pinctrl-names = "default", "sleep";
+		status = "okay";
+	};
+	timer@3 {
+		status = "okay";
+	};
+};
+
+&m_can1 {
+	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&can1_pins_a>;
+	pinctrl-1 = <&can1_sleep_pins_a>;
+	/delete-property/dmas;
+	/delete-property/dma-names;
+	status= "okay";
 };
 
 &sdmmc1 {
@@ -346,6 +389,59 @@
 	usbotg_hs_pins_a: usbotg-hs-0 {
 		pins {
 			pinmux = <STM32_PINMUX('A', 10, ANALOG)>; /* OTG_ID */
+		};
+	};
+
+	pwm1_pins_a: pwm1-0 {
+		pins {
+			pinmux = <STM32_PINMUX('E', 8, AF1)>, /* TIM1_CH1N */
+                   <STM32_PINMUX('F', 9, AF2)>; /* TIM1_CH1 */
+			bias-pull-down;
+			drive-push-pull;
+			slew-rate = <0>;
+		};
+	};
+
+	pwm1_sleep_pins_a:pwm1-sleep-0 {
+		pins {
+			pinmux = <STM32_PINMUX('E', 8, ANALOG)>, /* TIM1_CH1N */
+                   <STM32_PINMUX('F', 9, ANALOG)>; /* TIM1_CH1 */
+		};
+	};
+
+
+	pwm4_pins_a: pwm4-0 {
+		pins {
+			pinmux = <STM32_PINMUX('D', 13, AF2)>; /* TIM4_CH2 */
+			bias-pull-down;
+			drive-push-pull;
+			slew-rate = <0>;
+		};
+	};
+
+	pwm4_sleep_pins_a: pwm4-sleep-0 {
+		pins {
+			pinmux = <STM32_PINMUX('D', 13, ANALOG)>; /* TIM4_CH2 */
+		};
+	};
+	
+	can1_pins_a: can1-0 {
+		pins1 {
+			pinmux = <STM32_PINMUX('D', 0, AF9)>; /* CAN1_RX */
+			bias-disable;
+		};
+		pins2 {
+			pinmux = <STM32_PINMUX('G', 10, AF9)>; /* CAN1_TX */
+			bias-disable;
+			drive-push-pull;
+			slew-rate = <0>;
+		};
+	};
+
+	can1_sleep_pins_a: can1_sleep-0 {
+		pins {
+			pinmux = <STM32_PINMUX('D', 0, ANALOG)>, /* CAN1_RX */
+					 <STM32_PINMUX('G', 10, ANALOG)>; /* CAN1_TX */
 		};
 	};
 };
