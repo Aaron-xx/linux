@@ -196,6 +196,20 @@
 	status= "okay";
 };
 
+&spi5{
+	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&spi5_pins_a>;
+	pinctrl-1 = <&spi5_sleep_pins_a>;
+	cs-gpios = <&gpioi 1 GPIO_ACTIVE_LOW>;
+	status = "okay";
+
+    spidev@0{
+        compatible = "rohm,dh2228fv";
+        reg = <0>;
+        spi-max-frequency = <10000000>;
+    };
+};
+
 &sdmmc1 {
 	pinctrl-names = "default", "opendrain", "sleep";
 	pinctrl-0 = <&sdmmc1_pins_a>;
@@ -442,6 +456,30 @@
 		pins {
 			pinmux = <STM32_PINMUX('D', 0, ANALOG)>, /* CAN1_RX */
 					 <STM32_PINMUX('G', 10, ANALOG)>; /* CAN1_TX */
+		};
+	};
+
+	spi5_pins_a: spi5-0 {
+		pins1 {
+			pinmux = <STM32_PINMUX('E', 4, AF1)>; /* SPI5_MISO */
+			bias-pull-up;
+			drive-push-pull;
+			slew-rate = <1>;
+		};
+		pins2 {
+			pinmux = <STM32_PINMUX('H', 7, AF6)>, /* SPI5_SCK */
+					 <STM32_PINMUX('H', 12, AF5)>; /* SPI5_MOSI */
+			bias-disable;
+			drive-push-pull;
+			slew-rate = <1>;
+		};
+	};
+
+	spi5_sleep_pins_a: spi5_sleep-0 {
+		pins {
+			pinmux = <STM32_PINMUX('E', 4, ANALOG)>, /* SPI5_MISO */
+					 <STM32_PINMUX('H', 7, ANALOG)>, /* SPI5_SCK */
+					 <STM32_PINMUX('H', 12, ANALOG)>; /* SPI5_MOSI */
 		};
 	};
 };
