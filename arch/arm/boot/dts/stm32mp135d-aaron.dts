@@ -210,6 +210,23 @@
     };
 };
 
+&adc_1 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&adc1_pins_a>;
+	vdda-supply = <&vdd>;
+	vref-supply = <&vdd>;
+	status = "okay";
+
+	adc1: adc@0 {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		st,min-sample-time-nsecs = <5000>;
+		st,adc-channels = <11 12>;
+		assigned-resolution-bits = <12>;//adc max 12 bit
+		status = "okay";
+	};
+};
+
 &sdmmc1 {
 	pinctrl-names = "default", "opendrain", "sleep";
 	pinctrl-0 = <&sdmmc1_pins_a>;
@@ -480,6 +497,13 @@
 			pinmux = <STM32_PINMUX('E', 4, ANALOG)>, /* SPI5_MISO */
 					 <STM32_PINMUX('H', 7, ANALOG)>, /* SPI5_SCK */
 					 <STM32_PINMUX('H', 12, ANALOG)>; /* SPI5_MOSI */
+		};
+	};
+
+	adc1_pins_a: adc1-0 {
+		pins {
+			pinmux = <STM32_PINMUX('A', 3, ANALOG)>, /* ADC1 inp12 */
+					 <STM32_PINMUX('F', 13, ANALOG)>; /* ADC1 inp11 */
 		};
 	};
 };
